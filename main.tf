@@ -277,6 +277,11 @@ resource "kubernetes_daemonset" "datadog_agent" {
           }
 
           volume_mount {
+            name = "pointerdir"
+            mount_path = "/opt/datadog-agent/run"
+          }
+
+          volume_mount {
             name = "logcontainerpath"
             mount_path = "/var/lib/docker/containers"
           }
@@ -299,6 +304,13 @@ resource "kubernetes_daemonset" "datadog_agent" {
           name = "dockersocket"
           host_path {
             path = "/var/run/docker.sock"
+          }
+        }
+
+        volume {
+          name = "pointerdir"
+          host_path {
+            path = "/opt/datadog-agent/run"
           }
         }
 
