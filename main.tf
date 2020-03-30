@@ -204,6 +204,21 @@ resource "kubernetes_daemonset" "datadog_agent" {
           }
 
           env {
+            name = "DD_LOGS_ENABLED"
+            value = var.datadog_agent_options_logs_enabled
+          }
+
+          env {
+            name = "DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL"
+            value = "true"
+          }
+
+          env {
+            name = "DD_AC_EXCLUDE"
+            value = "name:datadog-agent"
+          }
+
+          env {
             name = "DD_APM_ENABLED"
             value = var.datadog_agent_options_apm_enabled
           }
